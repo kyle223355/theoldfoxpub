@@ -36,6 +36,7 @@
       z-index: 10;
       position: sticky;
       top: 0;
+      flex-wrap: wrap;
     }
 
     .domain-link {
@@ -48,6 +49,8 @@
     .nav {
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
     }
 
     .nav a {
@@ -149,7 +152,6 @@
       color: #f0c040;
     }
 
-    /* Menu page styling */
     .menu-page {
       max-width: 900px;
       margin: auto;
@@ -208,10 +210,73 @@
       user-select: none;
     }
 
+    /* === MOBILE RESPONSIVENESS === */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 20px;
+      }
+
+      .domain-link {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+
+      .nav {
+        width: 100%;
+        gap: 10px;
+      }
+
+      .nav a {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+
+      .main-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .sidebar,
+      .main-content {
+        width: 100%;
+      }
+
+      .hero-section {
+        padding: 40px 20px;
+        min-height: 500px;
+        font-size: 16px;
+      }
+
+      .overlay-text h2 {
+        font-size: 24px;
+      }
+
+      .overlay-text {
+        font-size: 16px;
+      }
+
+      .menu-page {
+        padding: 20px;
+      }
+
+      .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .menu-item span.price {
+        margin-left: 0;
+      }
+    }
   </style>
 </head>
 <body>
-
   <header>
     <div class="domain-link">The Old Fox, Bricket Wood</div>
     <nav class="nav">
