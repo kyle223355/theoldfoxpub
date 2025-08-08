@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("4_ydYIiq417-Ervw-"); // Replace with your EmailJS public key
+</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Old Fox</title>
@@ -11,6 +15,22 @@
       padding: 0;
       box-sizing: border-box;
     }
+#reservation-form input,
+#reservation-form select,
+#reservation-form textarea {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  outline: none;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+#reservation-form input::placeholder {
+  color: #ccc;
+}
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -280,9 +300,10 @@
   <header>
     <div class="domain-link">The Old Fox, Bricket Wood</div>
     <nav class="nav">
-      <a onclick="switchSection('about'); return false;" class="active">About</a>
-      <a onclick="switchSection('menu'); return false;">Menu</a>
-    </nav>
+  <a onclick="switchSection('about'); return false;" class="active">About</a>
+  <a onclick="switchSection('menu'); return false;">Menu</a>
+  <a onclick="switchSection('reservations'); return false;">Reservations</a>
+</nav>
   </header>
 
   <!-- About section: sidebar + main content -->
@@ -293,15 +314,16 @@
       </div>
       <div class="opening-times">
         <h3>Opening Times</h3>
-        <p>
-          Monday: 14:00 – 23:00
-          Tuesday: 14:00 – 23:00
-          Wednesday: 14:00 – 23:00
-          Thursday: 14:00 – 23:00
-          Friday: 12:00 – 23:30
-          Saturday: 12:00 – 22:30
-          Sunday: 12:00 – 22:30
-        </p>
+    <p>
+  Monday: 10:30 – 23:00  
+  Tuesday: 10:30 – 23:00  
+  Wednesday: 10:30 – 23:00  
+  Thursday: 10:30 – 23:00  
+  Friday: 10:30 – 23:30  
+  Saturday: 10:30 – 23:30  
+  Sunday: 12:00 – 22:00
+</p>
+
         <div class="open-status" id="status">Checking status...</div>
       </div>
     </aside>
@@ -321,52 +343,236 @@
     </div>
   </div>
 
-  <!-- Menu section: shown alone -->
-  <div id="menu-section" class="main-content menu-page" style="display:none;">
-    <section class="menu-category">
-      <h2>Mains</h2>
-      <div class="menu-item"><span>Seared Pork Belly</span><span class="price">£16.99</span></div>
-      <div class="menu-item"><span>Sirloin</span><span class="price">£16.99</span></div>
-      <div class="menu-item"><span>Soup Special (weekly)</span><span class="price">£7.99</span></div>
-      <div class="menu-item"><span>Fish & Chips</span><span class="price">£13.99 / £6.99</span></div>
-      <div class="menu-item"><span>Southern Fried Chicken Burger</span><span class="price">£13.99</span></div>
-      <div class="menu-item"><span>Double Beef Burger</span><span class="price">£14.99 / £6.99</span></div>
-      <div class="menu-item"><span>Beyond Burger (Vegan)</span><span class="price">£14.99</span></div>
-      <div class="menu-item"><span>Chicken Bacon Caesar Salad (Vegan option available)</span><span class="price">£11.99</span></div>
-    </section>
+<!-- Menu section: shown alone -->
+<div id="menu-section" class="main-content menu-page" style="display:none;">
 
-    <section class="menu-category">
-      <h2>Sides</h2>
-      <div class="menu-item"><span>Chips</span><span class="price">£1.75</span></div>
-      <div class="menu-item"><span>Chicken Strips</span><span class="price">£3.99</span></div>
-      <div class="menu-item"><span>Prawns</span><span class="price">£6.99</span></div>
-      <div class="menu-item"><span>Wings</span><span class="price">£4.99 / £7.99 / £10.99</span></div>
-      <div class="menu-item"><span>BBQ Ribs</span><span class="price">£6.99</span></div>
-    </section>
+  <section class="menu-category">
+    <h2>Mains</h2>
 
-    <section class="menu-category">
-      <h2>Desserts</h2>
-      <div class="menu-item"><span>Ice Cream</span><span class="price">£4.99 / £5.49</span></div>
-      <div class="menu-item"><span>Brownies</span><span class="price">£4.99</span></div>
-    </section>
+    <div class="menu-item">
+      <div>
+        <strong>Seared Pork Belly</strong>
+        <div class="description">Crispy sautéed new/baby potatoes, sautéed asparagus, lightly seared pork belly. Prep time: ~10 mins.</div>
+      </div>
+      <span class="price">£16.99</span>
+    </div>
 
-    <section class="menu-category">
-      <h2>Lunch Menu – £4.99</h2>
-      <div class="menu-item"><span>Cheese and Chutney Sandwich</span></div>
-      <div class="menu-item"><span>BLT</span></div>
-      <div class="menu-item"><span>Vegan BLT</span></div>
-      <div class="menu-item"><span>Ploughmans</span></div>
-      <div class="menu-item"><span>Fish Finger Sandwich</span></div>
-      <div class="menu-item"><span>Beef Sandwich (Mon–Tue)</span></div>
-    </section>
+    <div class="menu-item">
+      <div>
+        <strong>Sirloin</strong>
+        <div class="description">Chunky chips, buttered chestnut mushrooms. Choice of sauce: Blue Cheese, Stilton, or Peppercorn.</div>
+      </div>
+      <span class="price">£16.99</span>
+    </div>
 
-    <section class="menu-category">
-      <h2>Sunday Lunch</h2>
-      <div class="menu-item"><span>Vegan Mushroom & Dark Ale Pie</span><span class="price">£15.99</span></div>
-      <div class="menu-item"><span>Lamb Shank</span><span class="price">£15.99</span></div>
-      <div class="menu-item"><span>Roast Beef</span><span class="price">£15.99</span></div>
-    </section>
-  </div>
+    <div class="menu-item">
+      <div>
+        <strong>Soup Special</strong>
+        <div class="description">Rotating weekly special. Ask for today’s flavour!</div>
+      </div>
+      <span class="price">£7.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Fish & Chips</strong>
+        <div class="description">Battered cod, chips, mushy peas with mint, and homemade tartar sauce. Kids size available.</div>
+      </div>
+      <span class="price">£13.99 / £6.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Southern Fried Chicken Burger</strong>
+        <div class="description">Battered halved chicken breast with lettuce, mayo, and slightly melted Edam cheese.</div>
+      </div>
+      <span class="price">£13.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Double Beef Burger</strong>
+        <div class="description">Two 3oz patties, bacon, lettuce, tomato, and fried onions. Kids size available.</div>
+      </div>
+      <span class="price">£14.99 / £6.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Beyond Burger (Vegan)</strong>
+        <div class="description">Plant-based patty with lettuce, tomato, fried onion, and vegan cheese.</div>
+      </div>
+      <span class="price">£14.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Chicken Bacon Caesar Salad</strong>
+        <div class="description">Baby gem lettuce, rocket, red onion, cherry tomatoes, parmigiano, half chicken breast, 2 bacon rashers. Vegan option available.</div>
+      </div>
+      <span class="price">£11.99</span>
+    </div>
+  </section>
+
+  <section class="menu-category">
+    <h2>Sides</h2>
+
+    <div class="menu-item">
+      <div>
+        <strong>Chips</strong>
+        <div class="description">180g portion. Seasoned with sea salt flakes, cracked pepper, and rosemary.</div>
+      </div>
+      <span class="price">£1.75</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Chicken Strips</strong>
+        <div class="description">Portion of 5. Served with your choice of dip.</div>
+      </div>
+      <span class="price">£3.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Prawns</strong>
+        <div class="description">6 prawns cooked with diced onions and tomato, garnished with lemongrass.</div>
+      </div>
+      <span class="price">£6.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Wings</strong>
+        <div class="description">Choose BBQ, Sriracha, or Mango & Lime. Portions: 4/8/12 wings.</div>
+      </div>
+      <span class="price">£4.99 / £7.99 / £10.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>BBQ Ribs</strong>
+        <div class="description">1 rack of tender BBQ-glazed ribs.</div>
+      </div>
+      <span class="price">£6.99</span>
+    </div>
+  </section>
+
+  <section class="menu-category">
+    <h2>Desserts</h2>
+
+    <div class="menu-item">
+      <div>
+        <strong>Ice Cream</strong>
+        <div class="description">2 or 3 scoops. 4 flavours available including 1 vegan option.</div>
+      </div>
+      <span class="price">£4.99 / £5.49</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Brownies</strong>
+        <div class="description">Served warm with vanilla ice cream and chocolate sauce.</div>
+      </div>
+      <span class="price">£4.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Crumble with Custard</strong>
+        <div class="description">Classic hot crumble served with creamy custard.</div>
+      </div>
+      <span class="price">£5.49</span>
+    </div>
+  </section>
+
+  <section class="menu-category">
+    <h2>Lunch Menu – £4.99</h2>
+
+    <div class="menu-item"><span>Cheese and Chutney Sandwich</span></div>
+    <div class="menu-item"><span>BLT</span></div>
+    <div class="menu-item"><span>Vegan BLT</span></div>
+    <div class="menu-item"><span>Fish Finger Sandwich</span></div>
+    <div class="menu-item"><span>Beef Sandwich (Mon–Tue)</span></div>
+    <div class="menu-item"><span>Ploughmans</span></div>
+  </section>
+
+  <section class="menu-category">
+    <h2>Sunday Lunch</h2>
+
+    <div class="menu-item">
+      <div>
+        <strong>Vegan Woodland Mushroom & Dark Ale Pie</strong>
+        <div class="description">Served with parsnips, carrots, roast potatoes, stuffing ball, cabbage, and vegan gravy.</div>
+      </div>
+      <span class="price">£15.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Lamb Shank</strong>
+        <div class="description">With parsnips, carrots, roast potatoes, cabbage, stuffing, Yorkshire pudding, and minted gravy.</div>
+      </div>
+      <span class="price">£15.99</span>
+    </div>
+
+    <div class="menu-item">
+      <div>
+        <strong>Roast Beef</strong>
+        <div class="description">Two slices of roast beef, roast potatoes, parsnips, carrots, cabbage, Yorkshire pudding, pig in blanket, and beef gravy.</div>
+      </div>
+      <span class="price">£15.99</span>
+    </div>
+  </section>
+
+</div>
+
+<!-- Reservations section -->
+<div id="reservations-section" class="main-content" style="display:none; min-height: 600px;">
+  <form id="reservation-form" style="flex: 1; max-width: 600px; margin: auto; background-color: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.4);">
+    <h2 style="text-align: center; margin-bottom: 20px; color: #f0c040; text-shadow: 1px 1px 2px black;">Book a Table</h2>
+
+    <div style="display: flex; gap: 20px; margin-bottom: 15px;">
+      <input type="text" name="firstName" placeholder="First Name" required style="flex: 1;" />
+      <input type="text" name="lastName" placeholder="Last Name" required style="flex: 1;" />
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <input type="email" name="email" placeholder="Contact Email" required style="width: 100%;" />
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <input type="tel" name="phone" placeholder="Contact Number" required style="width: 100%;" />
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <input type="number" name="coverCount" placeholder="How many people?" min="1" required style="width: 100%;" />
+    </div>
+
+    <!-- New Date Field -->
+    <div style="margin-bottom: 15px;">
+      <label for="date" style="display: block; margin-bottom: 5px; color: #ccc;">Reservation Date</label>
+      <input type="date" name="date" id="date" required style="width: 100%;" min="<?php echo date('Y-m-d'); ?>" />
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <label for="time" style="display: block; margin-bottom: 5px; color: #ccc;">Preferred Time</label>
+      <input type="time" name="time" id="time" min="12:00" max="18:30" required style="width: 100%;" />
+      <small style="color: #aaa;">Booking available between 12:00 PM and 6:30 PM</small>
+    </div>
+
+    <!-- New Special Requests Field -->
+    <div style="margin-bottom: 20px;">
+      <label for="specialRequests" style="display: block; margin-bottom: 5px; color: #ccc;">Special Requests</label>
+      <textarea name="specialRequests" id="specialRequests" rows="4" placeholder="Any special requests?" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: none; font-size: 16px; background-color: rgba(255, 255, 255, 0.1); color: white; outline: none; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); resize: vertical;"></textarea>
+    </div>
+
+    <button type="submit" style="width: 100%; padding: 12px; background-color: #f0c040; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease;">
+      Submit Reservation
+    </button>
+  </form>
+</div>
+
 
   <footer>
     &copy; 2025 The Pub Co. All rights reserved.
@@ -379,15 +585,16 @@
     const hour = now.getHours();
     const minute = now.getMinutes();
     const timeNow = hour * 60 + minute;
-    const schedule = {
-      0: [12 * 60, 22.5 * 60],
-      1: [14 * 60, 23 * 60],
-      2: [14 * 60, 23 * 60],
-      3: [14 * 60, 23 * 60],
-      4: [14 * 60, 23 * 60],
-      5: [12 * 60, 23.5 * 60],
-      6: [12 * 60, 22.5 * 60],
-    };
+   const schedule = {
+  0: [12 * 60, 22 * 60],          // Sunday
+  1: [10.5 * 60, 23 * 60],        // Monday
+  2: [10.5 * 60, 23 * 60],        // Tuesday
+  3: [10.5 * 60, 23 * 60],        // Wednesday
+  4: [10.5 * 60, 23 * 60],        // Thursday
+  5: [10.5 * 60, 23.5 * 60],      // Friday
+  6: [10.5 * 60, 23.5 * 60],      // Saturday
+};
+
     const [openMins, closeMins] = schedule[day];
     if (timeNow >= openMins && timeNow < closeMins) {
       statusEl.textContent = "We are OPEN now 🍻";
@@ -407,29 +614,72 @@
       navLinks.forEach(link => link.style.pointerEvents = 'none');
 
       // Fade out current visible section
-      const fadeOutSection = aboutSection.style.display !== 'none' ? aboutSection : menuSection;
+     const reservationsSection = document.getElementById('reservations-section');
+const fadeOutSection =
+  aboutSection.style.display !== 'none'
+    ? aboutSection
+    : menuSection.style.display !== 'none'
+    ? menuSection
+    : reservationsSection;
+
       fadeOutSection.style.opacity = 0;
 
       setTimeout(() => {
         // Hide both sections first
         aboutSection.style.display = 'none';
-        menuSection.style.display = 'none';
+menuSection.style.display = 'none';
+reservationsSection.style.display = 'none';
 
-        // Show target section
-        if (id === 'about') {
-          aboutSection.style.display = 'flex';
-          // reset opacity to 0 for fade in
-          aboutSection.style.opacity = 0;
-          requestAnimationFrame(() => {
-            aboutSection.style.opacity = 1;
-          });
-        } else if (id === 'menu') {
-          menuSection.style.display = 'block';
-          menuSection.style.opacity = 0;
-          requestAnimationFrame(() => {
-            menuSection.style.opacity = 1;
-          });
-        }
+if (id === 'about') {
+  aboutSection.style.display = 'flex';
+  aboutSection.style.opacity = 0;
+  requestAnimationFrame(() => {
+    aboutSection.style.opacity = 1;
+  });
+} else if (id === 'menu') {
+  menuSection.style.display = 'block';
+  menuSection.style.opacity = 0;
+  requestAnimationFrame(() => {
+    menuSection.style.opacity = 1;
+  });
+} else if (id === 'reservations') {
+  reservationsSection.style.display = 'flex';
+  reservationsSection.style.opacity = 0;
+  requestAnimationFrame(() => {
+    reservationsSection.style.opacity = 1;
+  });
+}
+document.getElementById('reservation-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Stop actual form submission
+
+  const form = this;
+
+  emailjs.sendForm('service_72zimbc', 'template_tzkc94a', form)
+    .then(() => {
+      // Hide form
+      form.style.display = 'none';
+
+      // Show confirmation
+      const message = document.createElement('div');
+      message.textContent = "Booking received! Please keep an eye on your email and SMS for updates.";
+      message.style.color = '#f0c040';
+      message.style.fontWeight = '600';
+      message.style.fontSize = '24px';
+      message.style.textAlign = 'center';
+      message.style.margin = '40px auto';
+      message.style.maxWidth = '600px';
+      message.style.padding = '20px';
+      message.style.backgroundColor = 'rgba(240, 192, 64, 0.2)';
+      message.style.borderRadius = '12px';
+      message.style.boxShadow = '0 0 15px rgba(240, 192, 64, 0.4)';
+
+      document.getElementById('reservations-section').insertBefore(message, document.getElementById('reservations-section').firstChild);
+    }, (error) => {
+      alert('Failed to send booking. Please try again later.');
+      console.error('EmailJS error:', error);
+    });
+});
+
 
         // Update nav active classes
         navLinks.forEach(link => link.classList.remove('active'));
@@ -442,5 +692,6 @@
       }, 500);
     }
   </script>
+
 </body>
 </html>
